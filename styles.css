@@ -315,6 +315,10 @@ body{
   font-weight: 700;
 }
 
+.clicked-color {
+  color: rgb(207, 22, 220);
+}
+
 /* Нижний ярус (Инфо-сетка) */
 .footer-bottom-grid {
 
