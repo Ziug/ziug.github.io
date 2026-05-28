@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Личный кабинет — Fairy tail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#" aria-label="Fairy tail logo"><img src="images/logo.png" alt="logo"></a>
+      <button id="navToggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Открыть меню">☰</button>
+      <nav id="mainNav" class="main-nav">
+        <a href="index.html#about">О нас</a>
+        <a href="index.html#catalog">Каталог</a>
+        <a href="index.html#reviews">Отзывы</a>
+        <a href="contacts.html">Контакты</a>
+        <a href="account.html">Личный кабинет</a>
+        <a href="cart.html">Корзина</a>
+      </nav>
+    </div>
+  </header>
+  <script src="scripts.js" defer></script>
+
+  <section class="hero contacts-hero">
+    <img class="hero-bg" src="images/contacts.png" alt="Фон с цветами">
+    <div class="hero-inner container">
+      <h1 class="site-title">Личный кабинет</h1>
+    </div>
+  </section>
+
+  <main class="container account-main">
+    <section class="profile">
+      <div class="profile-left">
+        <img class="profile-photo" src="images/ekaterina.png" alt="user">
+        <p>Бонусы: <strong>500</strong></p>
+            <div class="profile_btns">
+                <a class="btn ghost" href="#">Выход</a>
+                <a class="btn ghost" href="#">Изменить пароль</a>
+                <a class="btn ghost" href="#">Поддержка</a>
+          </div>
+      </div>
+      <div class="profile-right">
+        <h3>Добрый день, Екатерина</h3>
+        <p>Телефон: +7 900 123-44-00</p>
+        <p>E-mail: Cat2003@mail.ru</p>
+        <p>Мои адреса:</p>
+        <p>Основной: ул. Садовая, 10, кв. 5</p>
+        <p>Дополнительный: пр. Мира, 25, офис 304</p>
+        <div class="profile-actions">
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="favorites" style="margin-bottom: 100px;">
+      <h2 class="section-title">Избранное</h2>
+      <div class="grid fav-grid">
+        <article class="card"><img src="images/product2.png" alt=""><h4>Жемчужина моря</h4><div class="card-price">Цена: 6 750 руб.</div></article>
+        <article class="card"><img src="images/product11.png" alt=""><h4>Скелет сада</h4><div class="card-price">Цена: 4 730 руб.</div></article>
+        <article class="card"><img src="images/product3.png" alt=""><h4>Шепот мрамора</h4><div class="card-price">Цена: 7 500 руб.</div></article>
+        <article class="card"><img src="images/product5.png" alt=""><h4>Любовное письмо</h4><div class="card-price">Цена: 7 560 руб.</div></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="logo" href="#"><img src="images/logo.png" alt="logo"></a>
+      <nav class="footer-nav">
+        <a href="#about">О нас </a>
+        <a href="#catalog">Каталог </a>
+        <a href="#reviews">Отзывы </a>
+        <a href="contacts.html">Контакты </a>
+        <a href="account.html">Личный кабинет</a>
+        <a href="#cart">Корзина</a>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-grid">
+        <div class="footer-col">
+          <h4>Поддержка</h4>
+          <p>Горячая линия: +7 812 678-44-54</p>
+          <p>Telegram: +7 856 365-26-90</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="rights">Контакты</h4>
+          <p class="rights">E-mail: flowershop@yandex.ru</p>
+          <p class="rights">VK: vk.com/flowershop_avantgarde</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

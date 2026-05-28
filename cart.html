@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Корзина — Fairy tail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#" aria-label="Fairy tail logo"><img src="images/logo.png" alt="logo"></a>
+      <button id="navToggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Открыть меню">☰</button>
+      <nav id="mainNav" class="main-nav">
+        <a href="index.html#about">О нас</a>
+        <a href="index.html#catalog">Каталог</a>
+        <a href="index.html#reviews">Отзывы</a>
+        <a href="contacts.html">Контакты</a>
+        <a href="account.html">Личный кабинет</a>
+        <a href="cart.html">Корзина</a>
+      </nav>
+    </div>
+  </header>
+  <script src="scripts.js" defer></script>
+
+  <section class="hero contacts-hero">
+    <img class="hero-bg" src="images/contacts.png" alt="Фон с цветами">
+    <div class="hero-inner container">
+      <h1 class="site-title cart-page-title">Ваша корзина</h1>
+    </div>
+  </section>
+
+  <main class="container cart-main">
+    <section class="cart-item">
+      <div class="cart-photo"><img src="images/product3.png" alt="Шепот мрамора"></div>
+
+      <!-- Info block spans details + price columns -->
+      <div class="cart-info">
+        <h3>Шепот мрамора</h3>
+        <p>Состав: архидеи, каллы, пионы</p>
+        <p>Дополнительная информация: бумага, лента, открытка</p>
+      </div>
+
+      <div class="cart-details">
+        <div class="qty">
+          <button class="qty-btn">−</button>
+          <span class="qty-num">1</span>
+          <button class="qty-btn">+</button>
+        </div>
+      </div>
+
+      <div class="cart-price">
+        <div class="price" >Цена: <strong>7 500 руб.</strong></div>
+        <div class="cart-actions">
+          <button class="btn ghost">Удалить</button>
+          <button class="btn accent">В избранное</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="order-details">
+      <h4>Получатель</h4>
+      <p>Телефон: +7 900 123-44-00</p>
+      <p>Имя: Екатерина</p>
+      <p>Адрес электронной почты: Cat2003@mail.ru</p>
+
+      <h4>Детали доставки</h4>
+      <p>Дата доставки: 12.12.22</p>
+      <p>Адрес: ул. Садовая, 10, кв. 5</p>
+
+      <h4>Комментарий к заказу: <small>Добавить открытку с текстом: "С днем рождения!"</small></h4>
+
+      <div class="center"><a class="btn" href="order.html">Перейти к заказу</a></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="logo" href="#"><img src="images/logo.png" alt="logo"></a>
+      <nav class="footer-nav">
+        <a href="index.html#about">О нас </a>
+        <a href="index.html#catalog">Каталог </a>
+        <a href="index.html#reviews">Отзывы </a>
+        <a href="contacts.html">Контакты </a>
+        <a href="account.html">Личный кабинет</a>
+        <a href="cart.html">Корзина</a>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-grid">
+        <div class="footer-col">
+          <h4>Поддержка</h4>
+          <p>Горячая линия: +7 812 678-44-54</p>
+          <p>Telegram: +7 856 365-26-90</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="rights">Контакты</h4>
+          <p class="rights">E-mail: flowershop@yandex.ru</p>
+          <p class="rights">VK: vk.com/flowershop_avantgarde</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

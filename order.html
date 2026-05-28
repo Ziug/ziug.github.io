@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Оформление заказа — Fairy tail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#" aria-label="Fairy tail logo"><img src="images/logo.png" alt="logo"></a>
+      <button id="navToggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Открыть меню">☰</button>
+      <nav id="mainNav" class="main-nav">
+        <a href="index.html#about">О нас</a>
+        <a href="index.html#catalog">Каталог</a>
+        <a href="index.html#reviews">Отзывы</a>
+        <a href="contacts.html">Контакты</a>
+        <a href="account.html">Личный кабинет</a>
+        <a href="cart.html">Корзина</a>
+      </nav>
+    </div>
+  </header>
+  <script src="scripts.js" defer></script>
+
+  <section class="hero contacts-hero">
+    <img class="hero-bg" src="images/hero.png" alt="Фон с цветами">
+    <div class="hero-inner container">
+      <h1 class="site-title">Ваша заказ</h1>
+    </div>
+  </section>
+
+  <main class="container order-main">
+    <h2 class="section-title" style="text-align:center;margin-top:36px">Детали заказа</h2>
+
+    <div class="order-summary">
+      <div class="summary-row"><div>Стоимость товаров:</div><div class="right">7 500 руб.</div></div>
+      <div class="summary-row"><div>Стоимость доставки:</div><div class="right">0 руб. (бесплатно от 7000 руб.)</div></div>
+      <div class="summary-row"><div>Скидка по промокоду/бонусам:</div><div class="right">1 000 руб.</div></div>
+      <div class="summary-row"><div>Сборы:</div><div class="right">50 руб.</div></div>
+      <div class="summary-row total"><div>Итого к оплате:</div><div class="right">6 550 руб.</div></div>
+
+      <div class="center"><a class="btn" href="#">Перейти к оплате</a></div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="logo" href="#"><img src="images/logo.png" alt="logo"></a>
+      <nav class="footer-nav">
+        <a href="index.html#about">О нас </a>
+        <a href="index.html#catalog">Каталог </a>
+        <a href="index.html#reviews">Отзывы </a>
+        <a href="contacts.html">Контакты </a>
+        <a href="account.html">Личный кабинет</a>
+        <a href="cart.html">Корзина</a>
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-grid">
+        <div class="footer-col">
+          <h4>Поддержка</h4>
+          <p>Горячая линия: +7 812 678-44-54</p>
+          <p>Telegram: +7 856 365-26-90</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="rights">Контакты</h4>
+          <p class="rights">E-mail: flowershop@yandex.ru</p>
+          <p class="rights">VK: vk.com/flowershop_avantgarde</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
