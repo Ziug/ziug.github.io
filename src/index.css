@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,500;1,500&display=swap');
+
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  font-family: 'DM Sans', sans-serif;
+  color: #2b3b2d;
+  background: #f6f0e5;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body, #root { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
+button { font: inherit; color: inherit; border: 0; background: none; }
+button:focus-visible, [role="button"]:focus-visible { outline: 2px solid #9b6f65; outline-offset: 4px; }
+
+#root { display: flex; justify-content: center; background: #f6f0e5; }
+
+/* stage frame (old .experience visuals) */
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 620px;
+  overflow: hidden;
+  background: #f6f0e5;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.stage.no-scroll { touch-action: none; }
+
+.paper-grain {
+  position: absolute; inset: 0; opacity: .15; pointer-events: none; z-index: 5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
+}
+
+/* ---------- arrival (old visuals) ---------- */
+.arrival { height: 100%; display: flex; align-items: center; justify-content: center; position: relative; text-align: center; }
+.twig { position: absolute; width: 100px; height: 150px; top: 18%; right: 12%; transform: rotate(18deg); opacity: .8; }
+.arrival-copy { font: 500 25px/1.35 'Playfair Display', serif; letter-spacing: -.3px; color: #334431; }
+.arrival-copy p { margin: 0 0 20px; }
+.swipe-prompt {
+  position: absolute; bottom: max(37px, var(--sab)); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: #697666; padding: 18px 25px; cursor: pointer;
+}
+.swipe-prompt span { display: block; font-size: 19px; margin-top: 9px; }
+
+/* ---------- garden stage (old visuals) ---------- */
+.garden-stage { position: relative; width: 100%; height: 100%; overflow: hidden; background: #efe9da; }
+.sky { position: absolute; inset: 0 0 41%; background: #e8eee1; }
+.sun { position: absolute; width: 77px; height: 77px; border-radius: 50%; background: #f0d6a2; top: 17%; right: 16%; opacity: .75; }
+.haze { position: absolute; width: 230px; height: 50px; border-top: 1px solid #cbd7c4; border-radius: 50%; opacity: .45; }
+.haze-one { top: 37%; left: -20px; }
+.haze-two { top: 52%; right: -50px; }
+.hill { position: absolute; left: -15%; width: 130%; border-radius: 50% 50% 0 0/100% 100% 0 0; }
+.hill-back { height: 31%; bottom: 33%; background: #c5d0ba; }
+.hill-front { height: 26%; bottom: 27%; background: #a9bd9e; }
+.ground { position: absolute; inset: auto -20% 0; height: 42%; background: #799268; border-radius: 50% 50% 0 0/20% 20% 0 0; box-shadow: inset 0 18px 30px #8fa681; }
+.ground:before {
+  content: ''; position: absolute; inset: 5% 0 0;
+  background:
+    radial-gradient(ellipse at 14% 24%, #506d53 0 2px, transparent 3px),
+    radial-gradient(ellipse at 75% 14%, #526c50 0 2px, transparent 3px),
+    radial-gradient(ellipse at 50% 60%, #5f7859 0 2px, transparent 3px);
+  opacity: .7;
+}
+
+.topbar {
+  position: absolute; top: max(18px, var(--sat)); left: 22px; right: 22px; z-index: 50;
+  display: flex; justify-content: space-between; align-items: center;
+  color: #466149; font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+}
+.topbar button { width: 44px; height: 44px; font-size: 19px; cursor: pointer; touch-action: manipulation; }
+.topbar .icon-btn {
+  min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px; font-size: 17px; letter-spacing: normal;
+}
+
+.scene-copy {
+  position: absolute; top: 14%; left: 25px; right: 25px; z-index: 30;
+  text-align: center; color: #30442f; font: 500 22px/1.35 'Playfair Display', serif;
+  pointer-events: none;
+}
+.scene-copy small { display: block; margin-top: 9px; font: 12px 'DM Sans', sans-serif; letter-spacing: .06em; color: #f4eadb; }
+
+.grass { position: absolute; bottom: 28%; color: #496b4d; font-size: 40px; letter-spacing: -13px; transform: rotate(-10deg); opacity: .8; z-index: 8; }
+.grass-left { left: 8%; }
+.grass-right { right: 7%; transform: rotate(16deg); }
+
+.buried-seed { position: absolute; left: 50%; top: 66%; transform: translate(-50%, -50%); opacity: .85; z-index: 9; }
+.seed-svg { width: 46px; height: 40px; }
+.furrow { position: absolute; left: 20%; top: 69%; width: 60%; height: 17px; border-bottom: 2px dashed #a9c091; border-radius: 50%; transform: rotate(-5deg); z-index: 8; }
+
+.seed-tray {
+  position: absolute; z-index: 40; bottom: max(24px, var(--sab)); left: 20px; right: 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.seed-choice {
+  min-width: 120px; min-height: 56px; display: flex; align-items: center; gap: 5px;
+  color: #f5efdf; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  cursor: grab; touch-action: none;
+}
+.seed-choice .seed-svg { width: 50px; }
+.kind-row { display: flex; gap: 3px; flex-wrap: wrap; justify-content: center; }
+.kind-row button { font-size: 10px; padding: 8px 9px; color: #dce5d5; opacity: .65; border-bottom: 1px solid transparent; cursor: pointer; min-height: 44px; }
+.kind-row .chosen { opacity: 1; color: #fff5e3; border-color: #e8c59f; }
+
+.drag-seed { position: absolute; z-index: 30; filter: drop-shadow(0 8px 5px #3f5e4188); pointer-events: none; }
+
+.planted { position: absolute; filter: drop-shadow(0 4px 2px #48634855); }
+.flower-svg { width: 112px; height: 176px; display: block; }
+.planted .flower-svg { animation: breath 5s ease-in-out infinite; }
+.flower-tulip .flower-svg { animation-duration: 6s; }
+.flower-sunflower .flower-svg { animation: turn 7s ease-in-out infinite; }
+
+.watering-can {
+  position: absolute; z-index: 100; left: calc(50% - 57px); top: calc(60% - 50px);
+  width: 115px; filter: drop-shadow(0 9px 4px #3d5d4166); cursor: grab; touch-action: none;
+}
+.can-svg { width: 115px; }
+.helper { position: absolute; bottom: 28%; width: 100%; text-align: center; color: #fff4df; font-size: 12px; letter-spacing: .08em; z-index: 30; pointer-events: none; }
+.hint-pill {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px;
+  border-radius: 999px; font-size: 12px; letter-spacing: .06em; color: #fff4df;
+  background: rgba(70, 97, 73, 0.55);
+}
+.garden-tray { bottom: 30px; }
+
+.firefly-invite {
+  position: absolute; bottom: max(34px, var(--sab)); left: 50%; transform: translateX(-50%);
+  color: #fff0bb; font-size: 12px; letter-spacing: .08em; padding: 18px; white-space: nowrap; z-index: 40;
+}
+.firefly-invite span { font-size: 17px; margin-left: 8px; }
+.flying-firefly { position: absolute; z-index: 60; left: 0; top: 0; width: 58px; height: 58px; margin-left: -29px; margin-top: -29px; filter: drop-shadow(0 0 12px #ffd86b); cursor: grab; touch-action: none; }
+.firefly-svg { width: 100%; height: 100%; display: block; }
+.firefly-ring {
+  position: absolute; left: 50%; top: 46%; width: 120px; height: 120px; transform: translate(-50%, -50%);
+  border-radius: 50%; border: 1.5px dashed rgba(255, 240, 187, 0.7); z-index: 22; pointer-events: none;
+}
+
+/* ---------- bouquet + letter (kept from new project, tuned to palette) ---------- */
+.bouquet { position: absolute; z-index: 65; left: 50%; top: 47%; width: 220px; height: 300px; transform: translate(-50%, -50%); }
+.bouquet-flower { position: absolute; left: 50%; bottom: 42px; transform-origin: bottom center; }
+.bouquet-flower .flower-svg { width: 104px; height: 166px; }
+.bouquet-wrap { position: absolute; bottom: 0; left: 38%; width: 70px; height: 75px; background: #d8a09b; clip-path: polygon(15% 0, 85% 0, 72% 100%, 28% 100%); opacity: .95; }
+.bouquet-wrap:after { content: ''; position: absolute; inset: 7px; border-top: 1px solid #f5d2c3; }
+
+.bouquet-letter { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 24px; z-index: 70; text-align: center; }
+.letter-card {
+  max-width: 340px; background: rgba(246, 240, 229, 0.94);
+  border: 1px solid rgba(155, 111, 101, 0.3); border-radius: 4px 22px 4px 22px;
+  padding: 30px 26px 24px; box-shadow: 0 18px 50px rgba(63, 94, 65, 0.25);
+}
+.letter-card h2 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: 32px; margin: 0 0 12px; color: #334431; }
+.letter-card p { font-size: 15px; line-height: 1.65; color: #466149; margin: 8px 0; font-family: 'Playfair Display', serif; }
+.letter-card .sign { font-family: 'Playfair Display', serif; font-style: italic; font-size: 19px; color: #334431; }
+
+.final-copy {
+  position: absolute; z-index: 70; inset: 0; display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 8% 22px 30px;
+  background: linear-gradient(#f0eadcaa 0%, #f0eadccc 42%, #82987599); color: #334431;
+}
+.final-copy h1 { font: 500 32px 'Playfair Display', serif; margin: 7vh 0 18px; }
+.final-copy p { font: 16px/1.55 'Playfair Display', serif; margin: 0 0 25px; }
+.final-copy div { font-size: 13px; line-height: 1.7; }
+.final-copy em { font-family: 'Playfair Display', serif; }
+.final-copy button { margin-top: auto; padding: 14px; color: #f8eedf; border-bottom: 1px solid #e5c39e; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+
+@keyframes breath { 0%, 100% { transform: rotate(-1deg); } 50% { transform: rotate(2deg) translateY(-2px); } }
+@keyframes turn { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(3deg); } }
+
+/* calm finale: ambience slows down when the firefly is home */
+.calm .planted .flower-svg { animation-play-state: paused; }
+.calm .grass { opacity: .6; }
+
+@media (min-width: 650px) {
+  .stage { max-width: 430px; margin: auto; box-shadow: 0 0 80px #8b856d44; }
+  .scene-copy { top: 13%; }
+  .final-copy h1 { margin-top: 12vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *:before, *:after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .swipe-prompt { animation: none !important; }
+}
