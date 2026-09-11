@@ -6,7 +6,7 @@ import { FLOWER_META, SEED_KINDS } from '../types';
 import { FlowerIllustration, Seed, WateringCan, Firefly } from '../components/Illustrations';
 import { sfx, setMuted, duckWind } from '../audio/ambience';
 
-interface Drop { id: string; x: number; y: number; dist: number }
+interface Drop { id: string; x: number; y: number; dx: number; dist: number }
 
 let n = 0;
 const nid = () => `n${Date.now().toString(36)}${(n++).toString(36)}`;
@@ -195,20 +195,14 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
       dispatch({ type: 'water', id: best.id, amount: 0.12 });
       if (Math.random() < 0.6) {
         const id = nid();
-        // base hitbox: only the very bottom of a stem counts.
-        // the drop lives until it physically touches one —
-        // otherwise it soaks into the soil below.
-        let landY: number | null = null;
-        for (const f of state.flowers) {
-          const fx = (f.x / 100) * r.width;
-          const fy = (f.y / 100) * r.height;
-          if (fy >= tipPy - 4 && Math.abs(fx - tipPx) <= 24) {
-            if (landY == null || fy < landY) landY = fy;
-          }
-        }
-        if (landY == null) landY = r.height * 0.96;
-        const dist = Math.max(24, landY - tipPy - 12);
-        setDrops((dd) => [...dd.slice(-16), { id, x: tipPx - 2, y: tipPy, dist }]);
+        // the drop flies from the spout STRAIGHT TO the stem base:
+        // purely vertical falls kept missing because the spout sits ~110px
+        // to the right of the finger, so water landed beside the plant.
+        // visual stem bottom = anchor + 14 (element shifted up 92% of 176px)
+        const landY = best.by + 12;
+        const dx = clamp(best.x - tipPx, -110, 110);
+        const dist = Math.max(24, landY - tipPy);
+        setDrops((dd) => [...dd.slice(-16), { id, x: tipPx - 2, y: tipPy, dx, dist }]);
         setTimeout(() => setDrops((dd) => dd.filter((q) => q.id !== id)), 950);
         if (Math.random() < 0.35) {
           const rid = nid();
@@ -389,8 +383,8 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
             // stem used to slide UNDER the wide head/leaves and looked like
             // it vanished on touching the flower
             style={{ position: 'absolute', left: d.x, top: d.y, width: 4, height: 14, borderRadius: '50%', background: '#c6dedb', zIndex: 95, pointerEvents: 'none' }}
-            initial={{ y: -4, opacity: 0 }}
-            animate={{ y: reduce ? 0 : d.dist, opacity: [0, 1, 1, 0] }}
+            initial={{ x: 0, y: -4, opacity: 0 }}
+            animate={{ x: reduce ? 0 : d.dx, y: reduce ? 0 : d.dist, opacity: [0, 1, 1, 0] }}
             transition={{ duration: 0.8, times: [0, 0.12, 0.8, 1] }}
           />
         ))}
