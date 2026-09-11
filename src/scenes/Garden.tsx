@@ -6,7 +6,7 @@ import { FLOWER_META, SEED_KINDS } from '../types';
 import { FlowerIllustration, Seed, WateringCan, Firefly } from '../components/Illustrations';
 import { sfx, setMuted, duckWind } from '../audio/ambience';
 
-interface Drop { id: string; x: number; y: number }
+interface Drop { id: string; x: number; y: number; dist: number }
 
 let n = 0;
 const nid = () => `n${Date.now().toString(36)}${(n++).toString(36)}`;
@@ -182,21 +182,23 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
     if (!r) return;
     const canEl = canRef.current?.getBoundingClientRect();
     const s = canEl ? canEl.width / 115 : 1;
-    const tipPx = canEl ? canEl.left - r.left + 143 * s * (115 / 150) : info.point.x - r.left;
+    const tipPx = (canEl ? canEl.left - r.left + 143 * s * (115 / 150) : info.point.x - r.left)-10;
     const tipPy = canEl ? canEl.top - r.top + 55 * s * (115 / 150) : info.point.y - r.top;
-    let best: { id: string; d: number; x: number } | null = null;
+    let best: { id: string; d: number; x: number; by: number } | null = null;
     for (const f of state.flowers) {
       const fx = (f.x / 100) * r.width;
       const fy = (f.y / 100) * r.height;
       const d = Math.hypot(fx - tipPx, fy - tipPy);
-      if (!best || d < best.d) best = { id: f.id, d, x: fx };
+      if (!best || d < best.d) best = { id: f.id, d, x: fx, by: fy };
     }
     if (best && best.d < 130) {
       dispatch({ type: 'water', id: best.id, amount: 0.12 });
       if (Math.random() < 0.6) {
         const id = nid();
-        setDrops((dd) => [...dd.slice(-16), { id, x: tipPx - 2, y: tipPy }]);
-        setTimeout(() => setDrops((dd) => dd.filter((q) => q.id !== id)), 1600);
+        // drop falls exactly to the flower's base, not a fixed distance
+        const dist = Math.max(24, best.by - tipPy);
+        setDrops((dd) => [...dd.slice(-16), { id, x: tipPx - 2, y: tipPy, dist }]);
+        setTimeout(() => setDrops((dd) => dd.filter((q) => q.id !== id)), 950);
         if (Math.random() < 0.35) {
           const rid = nid();
           setRipples((rr) => [...rr.slice(-6), { id: rid, x: best!.x }]);
@@ -374,8 +376,8 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
             key={d.id}
             style={{ position: 'absolute', left: d.x, top: d.y, width: 4, height: 14, borderRadius: '50%', background: '#c6dedb', zIndex: 34, pointerEvents: 'none' }}
             initial={{ y: -4, opacity: 0 }}
-            animate={{ y: reduce ? 0 : 52, opacity: [0, 1, 1, 0.9] }}
-            transition={{ duration: 1.5 }}
+            animate={{ y: reduce ? 0 : d.dist, opacity: [0, 1, 0.9] }}
+            transition={{ duration: 0.8 }}
           />
         ))}
 
