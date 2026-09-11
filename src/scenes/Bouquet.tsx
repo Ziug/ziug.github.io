@@ -34,17 +34,14 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
     [],
   );
 
-  // fan above the wrap mouth, in container-center coords
-  const slots = [
-    { x: -88, y: -34, r: -16 },
-    { x: -50, y: -64, r: -8 },
-    { x: 0, y: -78, r: 0 },
-    { x: 50, y: -64, r: 8 },
-    { x: 88, y: -34, r: 16 },
-    { x: -64, y: -8, r: -10 },
-    { x: 64, y: -8, r: 10 },
-    { x: 0, y: -24, r: 0 },
-  ];
+  // fan above the wrap mouth, computed from the actual flower count —
+  // perfectly mirror-symmetric for any number, rotation strictly tied
+  // to position (lean outward), so nothing ever looks random or shifted
+  const shown = flowers.slice(0, 8);
+  const slot = (i: number) => {
+    const x = shown.length === 1 ? 0 : -88 + (176 * i) / (shown.length - 1);
+    return { x, y: -78 + (Math.abs(x) / 88) * 48, r: x * 0.18 };
+  };
 
   return (
     <div className="stage no-scroll" role="main" aria-label="Букет и поздравление" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -62,7 +59,7 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
           viewBox="0 0 120 90"
           width={196}
           height={147}
-          style={{ position: 'absolute', left: '50%', top: 218, x: '-50%' }}
+          style={{ position: 'absolute', left: '50%', top: 232, x: '-50%' }}
           initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.2, duration: 1 }}
@@ -74,17 +71,17 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
           <path d="M60,52 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" fill="#b97e79" />
         </motion.svg>
 
-        {flowers.slice(0, 8).map((f, i) => {
-          const sl = slots[i % slots.length];
+        {shown.map((f, i) => {
+          const sl = slot(i);
           const fromX = (i % 2 === 0 ? -1 : 1) * (150 + i * 12);
           const pose =
             stage === 'gather'
               ? { x: sl.x, y: sl.y, rotate: sl.r, scale: 1, opacity: 1 }
-              : { x: sl.x * 0.2, y: 62, rotate: sl.r * 0.4, scale: 0.78, opacity: 1 };
+              : { x: sl.x * 0.2, y: 62, rotate: sl.x * 0.03, scale: 0.78, opacity: 1 };
           return (
             <motion.div
               key={f.id}
-              style={{ position: 'absolute', left: '50%', top: 156, width: 0, height: 0, zIndex: depths[i] }}
+              style={{ position: 'absolute', left: '50%', top: 170, width: 0, height: 0, zIndex: depths[i] }}
               initial={{ x: fromX, y: 190, rotate: 0, opacity: 0 }}
               animate={pose}
               transition={
