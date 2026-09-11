@@ -103,8 +103,9 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
       if (r) {
         const dx = ((nx - 50) / 100) * r.width;
         const dy = ((ny - 46) / 100) * r.height;
-        if (Math.hypot(dx, dy) < 130) {
-          // push away from the center so only the user can bring it home
+        if (Math.hypot(dx, dy) < 170) {
+          // wide berth around the ring: only the user can bring it home,
+          // it never wanders in by itself (plus spiral wobble on top)
           nx = clamp(50 + (nx - 50) * 1.9, 5, 95);
           ny = clamp(46 + (ny - 46) * 1.9, 8, 70);
         }
@@ -124,14 +125,16 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
     setTimeout(onToBouquet, 2000);
   }
 
-  // entering the ring — however it got there — tames the firefly
+  // entering the ring — however it got there — tames the firefly.
+  // Radius is tight on purpose: the wanderer keeps its distance,
+  // so this only fires when the user herds or drags it in.
   useEffect(() => {
     if (!flyShown) return;
     const r = boxRef.current?.getBoundingClientRect();
     if (!r) return;
     const dx = ((fly.x - 50) / 100) * r.width;
     const dy = ((fly.y - 46) / 100) * r.height;
-    if (Math.hypot(dx, dy) < 70) tame();
+    if (Math.hypot(dx, dy) < 55) tame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fly, flyShown]);
 

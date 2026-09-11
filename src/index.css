@@ -79,7 +79,7 @@ button:focus-visible, [role="button"]:focus-visible { outline: 2px solid #9b6f65
 }
 
 .scene-copy {
-  position: absolute; top: 14%; left: 25px; right: 25px; z-index: 30;
+  position: absolute; top: 14%; left: 25px; right: 25px; z-index: 90;
   text-align: center; color: #30442f; font: 500 22px/1.35 'Playfair Display', serif;
   pointer-events: none;
 }
@@ -89,7 +89,7 @@ button:focus-visible, [role="button"]:focus-visible { outline: 2px solid #9b6f65
 .grass-left { left: 8%; }
 .grass-right { right: 7%; transform: rotate(16deg); }
 
-.buried-seed { position: absolute; left: 50%; top: 66%; transform: translate(-50%, -50%); opacity: .85; z-index: 9; }
+.buried-seed { position: absolute; left: 50%; top: 66%; transform: translate(-50%, -50%); opacity: .85; z-index: 95; }
 .seed-svg { width: 46px; height: 40px; }
 .furrow { position: absolute; left: 20%; top: 69%; width: 60%; height: 17px; border-bottom: 2px dashed #a9c091; border-radius: 50%; transform: rotate(-5deg); z-index: 8; }
 
@@ -107,7 +107,7 @@ button:focus-visible, [role="button"]:focus-visible { outline: 2px solid #9b6f65
 .kind-row button { font-size: 10px; padding: 8px 9px; color: #dce5d5; opacity: .65; border-bottom: 1px solid transparent; cursor: pointer; min-height: 44px; }
 .kind-row .chosen { opacity: 1; color: #fff5e3; border-color: #e8c59f; }
 
-.drag-seed { position: absolute; z-index: 30; filter: drop-shadow(0 8px 5px #3f5e4188); pointer-events: none; }
+.drag-seed { position: absolute; z-index: 95; filter: drop-shadow(0 8px 5px #3f5e4188); pointer-events: none; }
 
 .planted { position: absolute; filter: drop-shadow(0 4px 2px #48634855); }
 .flower-svg { width: 112px; height: 176px; display: block; }
@@ -120,7 +120,7 @@ button:focus-visible, [role="button"]:focus-visible { outline: 2px solid #9b6f65
   width: 115px; filter: drop-shadow(0 9px 4px #3d5d4166); cursor: grab; touch-action: none;
 }
 .can-svg { width: 115px; }
-.helper { position: absolute; bottom: 28%; width: 100%; text-align: center; color: #fff4df; font-size: 12px; letter-spacing: .08em; z-index: 30; pointer-events: none; }
+.helper { position: absolute; bottom: 28%; width: 100%; text-align: center; color: #fff4df; font-size: 12px; letter-spacing: .08em; z-index: 90; pointer-events: none; }
 .hint-pill {
   display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px;
   border-radius: 999px; font-size: 12px; letter-spacing: .06em; color: #fff4df;
@@ -136,7 +136,7 @@ button:focus-visible, [role="button"]:focus-visible { outline: 2px solid #9b6f65
 .flying-firefly { position: absolute; z-index: 60; left: 0; top: 0; width: 58px; height: 58px; margin-left: -29px; margin-top: -29px; filter: drop-shadow(0 0 12px #ffd86b); cursor: grab; touch-action: none; }
 .firefly-svg { width: 100%; height: 100%; display: block; }
 .firefly-ring {
-  position: absolute; left: 50%; top: 46%; width: 120px; height: 120px; transform: translate(-50%, -50%);
+  position: absolute; left: 50%; top: 46%; width: 100px; height: 100px; transform: translate(-50%, -50%);
   border-radius: 50%; border: 1.5px dashed rgba(255, 240, 187, 0.7); z-index: 22; pointer-events: none;
 }
 
