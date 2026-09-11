@@ -36,11 +36,11 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
 
   // fan above the wrap mouth, computed from the actual flower count —
   // perfectly mirror-symmetric for any number, rotation strictly tied
-  // to position (lean outward), so nothing ever looks random or shifted
+  // to position (lean outward, pronounced), so nothing ever looks random
   const shown = flowers.slice(0, 8);
   const slot = (i: number) => {
     const x = shown.length === 1 ? 0 : -88 + (176 * i) / (shown.length - 1);
-    return { x, y: -78 + (Math.abs(x) / 88) * 48, r: x * 0.18 };
+    return { x, y: -78 + (Math.abs(x) / 88) * 48, r: x * 0.3 };
   };
 
   return (
@@ -54,6 +54,27 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
       />
 
       <div style={{ position: 'relative', width: 320, height: 430, zIndex: 10 }}>
+        {/* ground shadow under the bouquet */}
+        <motion.div
+          aria-hidden
+          style={{ position: 'absolute', left: '50%', top: 366, width: 170, height: 22, borderRadius: '50%', background: 'rgba(69,52,34,.20)', filter: 'blur(7px)', x: '-50%' }}
+          initial={{ opacity: 0, scaleX: 0.6 }}
+          animate={{ opacity: stage === 'gather' ? 0 : 1, scaleX: stage === 'gather' ? 0.6 : 1 }}
+          transition={{ duration: 1.2 }}
+        />
+        {/* back paper flap — depth behind the main wrap */}
+        <motion.svg
+          viewBox="0 0 120 90"
+          width={196}
+          height={147}
+          style={{ position: 'absolute', left: '50%', top: 224, transform: 'translateX(-50%) rotate(-9deg)', opacity: 0.95 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.95 }}
+          transition={{ delay: 2.4, duration: 1 }}
+          aria-hidden
+        >
+          <path d="M20,8 C40,26 60,40 60,78 C60,40 80,26 100,8 C86,10 72,12 60,14 C48,12 34,10 20,8 Z" fill="#d9c39a" stroke="#a98f66" strokeWidth={1.5} />
+        </motion.svg>
         {/* wrap paper — big enough to actually hold the bunch */}
         <motion.svg
           viewBox="0 0 120 90"
@@ -74,10 +95,11 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
         {shown.map((f, i) => {
           const sl = slot(i);
           const fromX = (i % 2 === 0 ? -1 : 1) * (150 + i * 12);
+          const size = 1 - (Math.abs(sl.x) / 88) * 0.1;
           const pose =
             stage === 'gather'
-              ? { x: sl.x, y: sl.y, rotate: sl.r, scale: 1, opacity: 1 }
-              : { x: sl.x * 0.2, y: 62, rotate: sl.x * 0.03, scale: 0.78, opacity: 1 };
+              ? { x: sl.x, y: sl.y, rotate: sl.r, scale: size, opacity: 1 }
+              : { x: sl.x * 0.2, y: 62, rotate: sl.x * 0.08, scale: 0.78, opacity: 1 };
           return (
             <motion.div
               key={f.id}
@@ -87,10 +109,13 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
               transition={
                 stage === 'gather'
                   ? { delay: 0.4 + i * 0.35, duration: 1.5, ease: [0.22, 1, 0.36, 1] }
-                  : { duration: 1.4, ease: [0.22, 1, 0.36, 1] }
+                  : { delay: i * 0.12, duration: 1.4, ease: [0.22, 1, 0.36, 1] }
               }
             >
-              <div style={{ transform: 'translate(-50%,-100%)' }}>
+              {/* inline-block: shrink-wraps the svg so %-translate actually
+                  centers (a plain block div collapses to the 0-width parent
+                  and translate(-50%) becomes a no-op → rightward shift) */}
+              <div style={{ display: 'inline-block', transform: 'translate(-50%,-100%)' }}>
                 <FlowerIllustration kind={f.kind} />
               </div>
             </motion.div>
