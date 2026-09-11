@@ -380,7 +380,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
           <motion.span
             key={d.id}
             // above the flowers (their z is 59-92): a drop falling along the
-            // stem used to slide UNDER the wide head/leaves and looked like
+            // stem used to slide UNDER the wide head/leaves and looked likeу
             // it vanished on touching the flower
             style={{ position: 'absolute', left: d.x, top: d.y, width: 4, height: 14, borderRadius: '50%', background: '#c6dedb', zIndex: 95, pointerEvents: 'none' }}
             initial={{ x: 0, y: -4, opacity: 0 }}
