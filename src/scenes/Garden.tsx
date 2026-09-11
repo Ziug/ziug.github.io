@@ -196,7 +196,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
       if (Math.random() < 0.6) {
         const id = nid();
         setDrops((dd) => [...dd.slice(-16), { id, x: tipPx - 2, y: tipPy }]);
-        setTimeout(() => setDrops((dd) => dd.filter((q) => q.id !== id)), 900);
+        setTimeout(() => setDrops((dd) => dd.filter((q) => q.id !== id)), 1600);
         if (Math.random() < 0.35) {
           const rid = nid();
           setRipples((rr) => [...rr.slice(-6), { id: rid, x: best!.x }]);
@@ -355,7 +355,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
               drag
               dragConstraints={boxRef}
               dragElastic={0.18}
-              whileDrag={{ scale: 1.1, rotate: -12 }}
+              whileDrag={{ scale: 1.1, rotate: 14 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               onDrag={canDrag}
               onPointerDown={(e) => e.stopPropagation()}
@@ -374,8 +374,8 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
             key={d.id}
             style={{ position: 'absolute', left: d.x, top: d.y, width: 4, height: 14, borderRadius: '50%', background: '#c6dedb', zIndex: 34, pointerEvents: 'none' }}
             initial={{ y: -4, opacity: 0 }}
-            animate={{ y: reduce ? 0 : 52, opacity: [0, 1, 0.9] }}
-            transition={{ duration: 0.8 }}
+            animate={{ y: reduce ? 0 : 52, opacity: [0, 1, 1, 0.9] }}
+            transition={{ duration: 1.5 }}
           />
         ))}
 
