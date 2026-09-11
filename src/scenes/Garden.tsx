@@ -65,6 +65,14 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
   // flies on its own, reacts to a nearby finger, must be herded to the center
   const [fly, setFly] = useState<{ x: number; y: number }>({ x: 78, y: 62 });
   const [pulse, setPulse] = useState(0);
+  // "Один цветок — уже красиво." (пауза) → "Но давайте сделаем целый сад."
+  const [encore, setEncore] = useState(false);
+  useEffect(() => {
+    if (state.flowers.length === 1 && state.flowers[0].growth > 0.6 && !encore && !state.bouquetDone) {
+      const t = setTimeout(() => setEncore(true), 3500);
+      return () => clearTimeout(t);
+    }
+  }, [state.flowers, encore, state.bouquetDone]);
   const lastReact = useRef(0);
   const flyDragging = useRef(false);
   const taming = useRef(false);
@@ -136,7 +144,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
           ? 'Посадите его там, где захотите.'
           : state.flowers.length === 1 && state.flowers[0].growth < 0.55
             ? 'Кажется, ему немного не хватает заботы.'
-            : grown < 3
+            : state.flowers.length <= 1 && !encore
               ? 'Один цветок — уже красиво.'
               : !state.firefly.shown
                 ? 'Но давайте сделаем целый сад.'
