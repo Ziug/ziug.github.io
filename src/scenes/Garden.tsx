@@ -183,7 +183,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
     const canEl = canRef.current?.getBoundingClientRect();
     const s = canEl ? canEl.width / 115 : 1;
     const tipPx = (canEl ? canEl.left - r.left + 143 * s * (115 / 150) : info.point.x - r.left)-10;
-    const tipPy = canEl ? canEl.top - r.top + 55 * s * (115 / 150) : info.point.y - r.top;
+    const tipPy = (canEl ? canEl.top - r.top + 55 * s * (115 / 150) : info.point.y - r.top)+20;
     let best: { id: string; d: number; x: number; by: number } | null = null;
     for (const f of state.flowers) {
       const fx = (f.x / 100) * r.width;
@@ -195,8 +195,19 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
       dispatch({ type: 'water', id: best.id, amount: 0.12 });
       if (Math.random() < 0.6) {
         const id = nid();
-        // drop falls exactly to the flower's base, not a fixed distance
-        const dist = Math.max(24, best.by - tipPy);
+        // base hitbox: only the very bottom of a stem counts.
+        // the drop lives until it physically touches one —
+        // otherwise it soaks into the soil below.
+        let landY: number | null = null;
+        for (const f of state.flowers) {
+          const fx = (f.x / 100) * r.width;
+          const fy = (f.y / 100) * r.height;
+          if (fy >= tipPy - 4 && Math.abs(fx - tipPx) <= 24) {
+            if (landY == null || fy < landY) landY = fy;
+          }
+        }
+        if (landY == null) landY = r.height * 0.96;
+        const dist = Math.max(24, landY - tipPy - 12);
         setDrops((dd) => [...dd.slice(-16), { id, x: tipPx - 2, y: tipPy, dist }]);
         setTimeout(() => setDrops((dd) => dd.filter((q) => q.id !== id)), 950);
         if (Math.random() < 0.35) {
