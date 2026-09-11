@@ -130,17 +130,21 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
   const instruction =
     state.bouquetDone
       ? 'Этот сад теперь ваш.'
-      : state.flowers.length === 0
-        ? 'Посадите его там, где захотите.'
-        : state.flowers.length === 1 && state.flowers[0].growth < 0.55
-          ? 'Кажется, ему немного не хватает заботы.'
-          : grown < 3
-            ? 'Один цветок — уже красиво.'
-            : !state.firefly.shown
-              ? 'Но давайте сделаем целый сад.'
-              : !state.firefly.tamed
-                ? 'Кто-то светится в траве…'
-                : 'Тихо… сад замирает.';
+      : state.flowers.length === 0 && !raked
+        ? 'Каждый сад начинается с маленького семени.'
+        : state.flowers.length === 0
+          ? 'Посадите его там, где захотите.'
+          : state.flowers.length === 1 && state.flowers[0].growth < 0.55
+            ? 'Кажется, ему немного не хватает заботы.'
+            : grown < 3
+              ? 'Один цветок — уже красиво.'
+              : !state.firefly.shown
+                ? 'Но давайте сделаем целый сад.'
+                : !state.firefly.tamed
+                  ? 'Кто-то светится в траве…'
+                  : 'Тихо… сад замирает.';
+  // opening beat from the original: one buried seed first, tray only after a soil tap
+  const showTray = raked || state.flowers.length > 0;
 
   function pct(e: { clientX: number; clientY: number }) {
     const r = boxRef.current?.getBoundingClientRect();
@@ -458,6 +462,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
           {state.bouquetDone && !message && <small>Трогайте цветы, сажайте новые семена</small>}
         </div>
 
+        {showTray && (
         <div className={`seed-tray${state.flowers.length > 0 ? ' garden-tray' : ''}`} role="toolbar" aria-label="Семена для посадки">
           <button
             className="seed-choice"
@@ -480,6 +485,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
             ))}
           </div>
         </div>
+        )}
       </section>
     </motion.div>
   );
