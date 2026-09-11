@@ -385,10 +385,13 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
         {drops.map((d) => (
           <motion.span
             key={d.id}
-            style={{ position: 'absolute', left: d.x, top: d.y, width: 4, height: 14, borderRadius: '50%', background: '#c6dedb', zIndex: 34, pointerEvents: 'none' }}
+            // above the flowers (their z is 59-92): a drop falling along the
+            // stem used to slide UNDER the wide head/leaves and looked like
+            // it vanished on touching the flower
+            style={{ position: 'absolute', left: d.x, top: d.y, width: 4, height: 14, borderRadius: '50%', background: '#c6dedb', zIndex: 95, pointerEvents: 'none' }}
             initial={{ y: -4, opacity: 0 }}
-            animate={{ y: reduce ? 0 : d.dist, opacity: [0, 1, 0.9] }}
-            transition={{ duration: 0.8 }}
+            animate={{ y: reduce ? 0 : d.dist, opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 0.8, times: [0, 0.12, 0.8, 1] }}
           />
         ))}
 
