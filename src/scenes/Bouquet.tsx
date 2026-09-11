@@ -99,11 +99,11 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
           const pose =
             stage === 'gather'
               ? { x: sl.x, y: sl.y, rotate: sl.r, scale: size, opacity: 1 }
-              : { x: sl.x * 0.2, y: 62, rotate: sl.x * 0.08, scale: 0.78, opacity: 1 };
+              : { x: sl.x * 0.2, y: 90, rotate: sl.x * 0.3, scale: 0.78, opacity: 1 };
           return (
             <motion.div
               key={f.id}
-              style={{ position: 'absolute', left: '50%', top: 170, width: 0, height: 0, zIndex: depths[i] }}
+              style={{ position: 'absolute', left: '50%', top: 170, width: 0, height: 0, zIndex: depths[i]*-1 }}
               initial={{ x: fromX, y: 190, rotate: 0, opacity: 0 }}
               animate={pose}
               transition={
@@ -115,7 +115,7 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
               {/* inline-block: shrink-wraps the svg so %-translate actually
                   centers (a plain block div collapses to the 0-width parent
                   and translate(-50%) becomes a no-op → rightward shift) */}
-              <div style={{ display: 'inline-block', transform: 'translate(-50%,-100%)' }}>
+              <div style={{ display: 'inline-block', transform: 'translate(-50%,-80%)' }}>
                 <FlowerIllustration kind={f.kind} />
               </div>
             </motion.div>
@@ -127,7 +127,7 @@ export default function Bouquet({ onDone }: { onDone: () => void }) {
           <motion.span
             key={i}
             style={{ position: 'absolute', left: 160, top: 120, width: 9, height: 12, borderRadius: '70% 30% 60% 40%', background: ['#d9a5a0', '#e8c39a', '#b8a9c9', '#f2d488'][i % 4] }}
-            initial={{ opacity: 0, x: 0, y: 0 }}
+            initial={{ opacity: 0, x: 0, y: 0, z: 300}}
             animate={{ opacity: [0, 0.9, 0], x: [-30 + i * 16, -50 + i * 22], y: [-40, 90], rotate: 120 }}
             transition={{ delay: 1 + i * 0.7, duration: 3.4 }}
           />
