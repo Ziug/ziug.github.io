@@ -52,7 +52,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
 
   // seed mechanics ported from the original visuals project:
   // chosen kind + seed that follows the finger, planted on release
-  const [selected, setSelected] = useState<FlowerKind>('chamomile');
+  const [selected, setSelected] = useState<FlowerKind>('rose');
   const [drag, setDrag] = useState<{ x: number; y: number } | null>(null);
   const [raked, setRaked] = useState(false);
   const [message, setMessage] = useState('');
@@ -85,9 +85,9 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
   const showCan = state.flowers.some((f) => f.growth < 1 && f.growth > 0.03);
   const inGardenPhase = state.phase === 'garden' || state.phase === 'after';
 
-  // let the garden live a few seconds before the firefly appears
+  // let the garden live a little before the firefly appears — after the 5th bloom
   useEffect(() => {
-    if (!inGardenPhase || state.firefly.shown || grown < 2) return;
+    if (!inGardenPhase || state.firefly.shown || grown < 5) return;
     const t = setTimeout(() => dispatch({ type: 'firefly-show' }), 4000);
     return () => clearTimeout(t);
   }, [inGardenPhase, state.firefly.shown, grown, dispatch]);
