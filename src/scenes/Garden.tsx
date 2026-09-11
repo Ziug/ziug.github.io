@@ -143,8 +143,9 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
                 : !state.firefly.tamed
                   ? 'Кто-то светится в траве…'
                   : 'Тихо… сад замирает.';
-  // opening beat from the original: one buried seed first, tray only after a soil tap
-  const showTray = raked || state.flowers.length > 0;
+  // opening beat from the original: one buried seed first —
+  // THAT seed is dragged, the tray with other seeds appears only after planting it
+  const showTray = state.flowers.length > 0;
 
   function pct(e: { clientX: number; clientY: number }) {
     const r = boxRef.current?.getBoundingClientRect();
@@ -272,7 +273,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
     }
   }
 
-  const trayKinds = state.flowers.length === 0 ? SEED_KINDS.slice(0, 4) : SEED_KINDS;
+  const trayKinds = SEED_KINDS;
 
   return (
     <motion.div
@@ -345,7 +346,25 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
         ))}
 
         {state.flowers.length === 0 && !drag && (
-          <div className="buried-seed" aria-hidden><Seed /></div>
+          <motion.div
+            className="buried-seed"
+            role="button"
+            tabIndex={0}
+            aria-label="Семечко. Потяните его в землю, чтобы посадить."
+            onPointerDown={(e) => {
+              e.stopPropagation();
+              sfx.unlock();
+              const { x, y } = pct(e);
+              setDrag({ x, y });
+              setMessage('');
+            }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') plantAt(50, 68); }}
+            animate={reduce ? undefined : { scale: [1, 1.14, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ cursor: 'grab', touchAction: 'none' }}
+          >
+            <Seed kind={selected} />
+          </motion.div>
         )}
 
         {drag && (
@@ -458,6 +477,7 @@ export default function Garden({ onToBouquet }: { onToBouquet: () => void }) {
             </motion.p>
           </AnimatePresence>
           {message && <motion.small initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{message}</motion.small>}
+          {state.flowers.length === 0 && !drag && !message && <small>Потяните семечко в землю</small>}
           {flyShown && <small>Он пугливый — подгоните его к кругу в центре сада</small>}
           {state.bouquetDone && !message && <small>Трогайте цветы, сажайте новые семена</small>}
         </div>

@@ -3,13 +3,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Twig } from '../components/Illustrations';
 import { sfx } from '../audio/ambience';
 
-/* Arrival restyled with the original project's visuals.
-   Keeps the true swipe-up gesture, plus tap fallback on the prompt. */
+/* Arrival with the original project's visuals and behaviour:
+   the swipe only triggers the transition — content never follows the finger. */
 export default function Arrival({ onEnter }: { onEnter: () => void }) {
   const [line2, setLine2] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const startY = useRef<number | null>(null);
-  const [dragY, setDragY] = useState(0);
 
   useEffect(() => {
     const t = setTimeout(() => setLine2(true), 1300);
@@ -31,22 +30,15 @@ export default function Arrival({ onEnter }: { onEnter: () => void }) {
       animate={leaving ? { scale: 1.08, opacity: 0.4 } : { scale: 1, opacity: 1 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
       onPointerDown={(e) => { startY.current = e.clientY; }}
-      onPointerMove={(e) => {
-        if (startY.current == null || leaving) return;
-        const dy = startY.current - e.clientY;
-        if (dy > 0) setDragY(Math.min(90, dy));
-      }}
-      onPointerUp={() => {
-        if (dragY > 48) go();
-        setDragY(0); startY.current = null;
+      onPointerUp={(e) => {
+        const dy = startY.current == null ? 0 : startY.current - e.clientY;
+        startY.current = null;
+        if (dy > 48) go();
       }}
       style={{ touchAction: 'none' }}
     >
       <div className="paper-grain" />
-      <section
-        className="arrival"
-        style={dragY ? { transform: `translateY(${-dragY * 0.4}px)` } : undefined}
-      >
+      <section className="arrival">
         <Twig />
         <div className="arrival-copy">
           <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
